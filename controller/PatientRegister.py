@@ -8,9 +8,7 @@ class PatientRegister(object):
         self.age = age
         self.periods = periods
         self.cellDimension = cellDimension
-        self.history = DoublyLinkedListWithIndex()
-        # self.initialState = initialMatrix
-        self.history.insertAtEnd(initialMatrix)
+        self.initialState = initialMatrix
 
     def runSimulation():
         pass

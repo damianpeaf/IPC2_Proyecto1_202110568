@@ -1,4 +1,5 @@
 from tkinter import *
+from controller.Register import Register
 
 from views.components.PatientsButtons import PatientsButtons
 
@@ -15,7 +16,9 @@ class ChoosePatient:
     def initUI(self):
         frame = Frame(self.window)
 
-        PatientsButtons(frame, self.window)
+        for i in range(0, Register.patients.lenght):
+            PatientsButtons(frame, self.window,
+                            Register.patients.getElement(i))
 
         frame.pack(expand=1, fill="x")
         Button(self.window,
