@@ -16,7 +16,7 @@ def generateNextState(matrix):
             # 1. Toda célula contagiada, continúa contagiada si tiene exactamente 2 o 3 células contagiadas en las celdas vecinas, de lo contrario sana para el siguiente periodo.
             if matrix.getElement(i, j):
                 # if infectedNeighboringCells >= 2 or infectedNeighboringCells == 3:
-                if infectedNeighboringCells >= 2:
+                if infectedNeighboringCells == 2 or infectedNeighboringCells == 3:
                     newMatrixState.setElement(i, j, True)
                 else:
                     newMatrixState.setElement(i, j, None)

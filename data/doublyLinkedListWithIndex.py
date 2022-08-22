@@ -27,3 +27,5 @@ class DoublyLinkedListWithIndex(DoublyLinkedList):
             if nodeToRead.index == index:
                 return nodeToRead.data
             nodeToRead = nodeToRead.nextNode
+
+        return None

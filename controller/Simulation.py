@@ -34,6 +34,7 @@ class Simulation():
         self.actualState = self.history.getElement(0)
 
         # * other stats
+        self.periodsLeft = int(patientRegister.periods)
         self.actualPeriod = 0
         self.healthyCells = 0
         self.infectedCells = 0
@@ -45,17 +46,38 @@ class Simulation():
         self.countCells()
 
     def nextState(self):
-        # * New matrix
-        newState = generateNextState(self.actualState)
-        self.history.insertAtEnd(newState)
 
-        # * Next period
-        self.actualState = self.history.getElement(self.actualPeriod + 1)
-        self.actualPeriod += 1
+        # Doesnt exist next state
+        if self.history.getElement(self.actualPeriod + 1) == None:
+            # ! Verify if simulation ended
+            # * New matrix
+            newState = generateNextState(self.actualState)
+            self.history.insertAtEnd(newState)
 
-        # * Detect disease
+            # * Next period
+            self.actualState = self.history.getElement(self.actualPeriod + 1)
+            self.actualPeriod += 1
+
+            # * Detect disease
+            # ! Verify simulation ended
+
+        # Already exists state
+        else:
+            self.actualState = self.history.getElement(self.actualPeriod + 1)
+            self.actualPeriod += 1
+
+        self.periodsLeft -= 1
+
+    def prevState(self):
+        if self.actualPeriod - 1 < 0:
+            return
+
+        self.actualState = self.history.getElement(self.actualPeriod - 1)
+        self.actualPeriod -= 1
+        self.periodsLeft += 1
 
     def runAllStates():
+        # ? View with thread
         pass
 
     def lookForDiseases():
@@ -92,7 +114,14 @@ class Simulation():
         else:
             diseases += "No se ha detectado que se repita un patron posterior\n"
 
-        stats = f"Periodo actual : {str(self.actualPeriod)} \n Celulas sanas : {str(self.healthyCells)} \n Celulas infectadas : {str(self.infectedCells)}"
+        stats = ""
+
+        if self.periodsLeft <= 0:
+            stats += "Han pasado el limite de periodos restantes\n"
+        else:
+            stats += f"Periodos restantes: {str(self.periodsLeft)}\n"
+
+        stats += f"Periodo actual : {str(self.actualPeriod)} \n Celulas sanas : {str(self.healthyCells)} \n Celulas infectadas : {str(self.infectedCells)}"
 
         patientInfo = f"Nombre : {self.patientRegister.name}\n Edad : {str(self.patientRegister.age)}"
 

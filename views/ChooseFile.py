@@ -12,7 +12,8 @@ class ChooseFile():
     def __init__(self, parent):
         self.window = Toplevel(parent)
         self.window.geometry("700x110")
-        self.window.title("Gestionar Cursos")
+        self.window.title("Sekeccuibar archivo")
+        self.window.config(bg='#1B1F3B')
         self.initUI()
 
     def launchFileExplorer(self):
@@ -37,7 +38,11 @@ class ChooseFile():
         textFont = ("Helvetica", 14, "bold")
         buttonFont = ("Helvetica", 12, "bold")
 
-        Label(self.window, text="Ruta: ", font=textFont).grid(row=0, column=0)
+        Label(self.window,
+              text="Ruta: ",
+              font=textFont,
+              bg='#1B1F3B',
+              fg="white").grid(row=0, column=0)
 
         self.entryPath = Entry(self.window, width=80)
         self.entryPath.grid(row=0, column=1)

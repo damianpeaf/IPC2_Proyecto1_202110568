@@ -50,7 +50,7 @@
             <edad>20</edad>
         </datospersonales>
         <periodos>5</periodos>
-        <m>10</m>
+        <m>20</m>
         <rejilla>
             <celda f="1" c="6" />
             <celda f="2" c="6" />
