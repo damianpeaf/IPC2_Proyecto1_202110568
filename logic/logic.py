@@ -1,4 +1,5 @@
 from controller.PatientRegister import PatientRegister
+from data.doublyLinkedListWithIndex import DoublyLinkedListWithIndex
 from data.matrix import SquareMatrix
 
 
@@ -56,9 +57,52 @@ def infectedNeighboringCellsCount(i, j, matrix):
     return infectedCount
 
 
-# a. Que el patrón inicial se repita siempre después de “N” períodos, en este caso la enfermedad produce un caso grave. Si “N” es igual a 1, entonces, el paciente morirá a causa de la enfermedad, ya que ésta será incurable.
-# b. Que algún patrón, distinto al patrón inicial, se repita luego de “N” períodos cada “N1” períodos, en este caso la enfermedad producirá un caso grave. Si “N1” es igual a 1, entonces, el paciente morirá a causa de la enfermedad, ya que ésta será incurable, en caso de que “N1” es mayor que 1, la enfermedad será grave.
+def detectDisease(history, diseaseType, initialStatePatternDetected,
+                  initialStatePatternPeriod, laterStatePatternDetected,
+                  laterStatePatternOcurrence, laterStatePatternPeriod):
 
+    # a. Que el patrón inicial se repita siempre después de “N” períodos, en este caso la enfermedad produce un caso grave. Si “N” es igual a 1, entonces, el paciente morirá a causa de la enfermedad, ya que ésta será incurable.
+    initialMatrix = history.getElement(0)
+    for i in range(0, history.lenght):
 
-def detectDisease():
-    pass
+        if i == 0:
+            continue
+
+        if SquareMatrix.isMatrixEqual(initialMatrix, history.getElement(i)):
+            initialStatePatternDetected = True
+            initialStatePatternPeriod = i
+
+            print("encontrao")
+
+            if initialStatePatternPeriod == 1:
+                diseaseType = "incurable"
+            else:
+                diseaseType = "grave"
+
+            return
+
+    # b. Que algún patrón, distinto al patrón inicial, se repita luego de “N” períodos cada “N1” períodos, en este caso la enfermedad producirá un caso grave. Si “N1” es igual a 1, entonces, el paciente morirá a causa de la enfermedad, ya que ésta será incurable, en caso de que “N1” es mayor que 1, la enfermedad será grave.
+    for i in range(0, history.lenght):
+
+        if i == 0:
+            continue
+
+        patternToFind = history.getElement(i)
+
+        for j in range(i + 1, history.lenght):
+            if SquareMatrix.isMatrixEqual(patternToFind,
+                                          history.getElement(j)):
+                print("encontraooo")
+
+                laterStatePatternDetected = True
+                laterStatePatternOcurrence = i
+                laterStatePatternPeriod = j - i
+
+                if initialStatePatternPeriod == 1:
+                    diseaseType = "incurable"
+                else:
+                    diseaseType = "grave"
+
+                return
+
+    # ? Por defecto es leve ?

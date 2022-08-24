@@ -1,5 +1,7 @@
 from tkinter import *
+from tkinter import messagebox
 from controller.Register import Register
+from controller.Report import Report
 
 from views.components.PatientsButtons import PatientsButtons
 
@@ -16,6 +18,15 @@ class ChoosePatient:
     def handleCleanData(self):
         Register.cleanRegisters()
         self.window.destroy()
+
+    def handleGenerateReports(self):
+        response = Report.generateAllReports(Register.patients)
+
+        if response:
+            messagebox.showinfo(title="Aviso", message='Reporte Generado')
+        else:
+            messagebox.showerror(title="Error",
+                                 message='Error al generar el reporte')
 
     def initUI(self):
         frame = Frame(self.window, bg='#1B1F3B')
@@ -41,11 +52,12 @@ class ChoosePatient:
                command=self.handleCleanData).pack(expand=1, fill="x")
 
         Button(self.window,
-               text="Generar todos los informes",
+               text="Generar informe",
                pady=5,
                padx=10,
                bg="#4B1C7D",
-               fg="white").pack(expand=1, fill="x")
+               fg="white",
+               command=self.handleGenerateReports).pack(expand=1, fill="x")
 
         Button(self.window,
                text="Regresar",

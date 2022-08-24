@@ -73,3 +73,12 @@ class MainMenu:
                fg="white",
                font=buttonFont,
                command=self.goToChoosePatient).pack(expand=1, fill="x")
+
+        Button(self.masterWindow,
+               text="Salir",
+               pady=5,
+               padx=10,
+               bg="#DC2656",
+               fg="white",
+               font=buttonFont,
+               command=self.masterWindow.destroy).pack(expand=1, fill="x")

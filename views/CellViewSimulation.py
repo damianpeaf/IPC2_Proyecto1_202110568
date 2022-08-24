@@ -1,7 +1,9 @@
 import threading
 import time
 from tkinter import *
+from tkinter import messagebox
 from controller.Register import Register
+from controller.Report import Report
 from controller.Simulation import Simulation
 
 from views.components.CellBoard import CellBoard
@@ -12,6 +14,7 @@ class CellViewSimulation:
 
     def __init__(self, parent, patientRegister):
         self.simulation = Simulation(patientRegister)
+        self.patientName = patientRegister.name
         self.window = Toplevel(parent)
         self.window.geometry("800x480")
         self.window.title(f"Simulación {patientRegister.name}")
@@ -34,15 +37,26 @@ class CellViewSimulation:
 
     def prevState(self):
         self.simulation.prevState()
-        self.infoFrame.pack_forget()
-        self.boardFrame.pack_forget()
+        self.infoFrame.destroy()
+        self.boardFrame.destroy()
         self.refreshInfo()
 
     def nextState(self):
         self.simulation.nextState()
+        self.infoFrame.destroy()
+        self.boardFrame.destroy()
+        self.refreshInfo()
+
+        if self.simulation.simulationEnd:
+            messagebox.showinfo(title="Aviso", message='Simulacion terminada')
+
+    def untilFindDisease(self):
+        self.simulation.runAllStates()
         self.infoFrame.pack_forget()
         self.boardFrame.pack_forget()
         self.refreshInfo()
+        messagebox.showinfo(title="Aviso", message='Simulacion terminada')
+        Report.generateGravizReport(self.simulation.history, self.patientName)
 
     def autoSimulateStart(self):
         self.simulationButtonStart['state'] = DISABLED
@@ -54,7 +68,7 @@ class CellViewSimulation:
 
     def autoSimulate(self):
         while not self.simulation.simulationEnd:
-            time.sleep(1)
+            time.sleep(0.5)
             self.nextState()
 
             if not self.threadContinue:
@@ -118,11 +132,14 @@ class CellViewSimulation:
                                             sticky=N + S + E + W)
 
         Button(self.buttonFrame,
-               text="Generar XML",
+               text="Simular todo",
                pady=5,
                padx=10,
                bg="#1A9A67",
-               fg="white").grid(row=0, column=5, sticky=N + S + E + W)
+               fg="white",
+               command=self.untilFindDisease).grid(row=0,
+                                                   column=5,
+                                                   sticky=N + S + E + W)
 
         self.buttonFrame.grid_columnconfigure(0, weight=1)
         self.buttonFrame.pack(expand=1, fill="x")

@@ -1,3 +1,4 @@
+from controller.GraphvizMatrixParser import GraphvizMatrixParser
 from views.MainMenu import MainMenu
 
 
