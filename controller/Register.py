@@ -37,8 +37,8 @@ class Register(object):
                 cells = patient.getElementsByTagName('celda')
 
                 for cell in cells:
-                    row = int(cell.getAttribute('f')) - 1
-                    col = int(cell.getAttribute('c')) - 1
+                    row = int(cell.getAttribute('f'))
+                    col = int(cell.getAttribute('c'))
                     matrix.setElement(row, col, True)
 
                 # Create register

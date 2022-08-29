@@ -51,10 +51,10 @@ class GraphvizMatrixParser():
 
     def generateNode(self, element, fila, columna):
 
-        color = "blue"
+        color = "red"
 
         if not element:
-            color = "red"
+            color = "blue"
 
         body = "label=\"(" + fila + "," + columna + ")\", fillcolor=" + color + ", group=" + str(
             int(columna) + 1) + ", pos=\"" + fila + "," + columna + "!\" "

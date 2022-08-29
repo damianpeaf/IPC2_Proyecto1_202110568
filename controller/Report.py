@@ -25,15 +25,14 @@ class Report():
             for i in range(0, history.lenght):
                 GraphvizMatrixParser(history.getElement(i), i)
 
-            print('generando dot completo')
-
-            system('cd dot && type *.dot | gvpack -u -o output.dot')
+            system(
+                f'cd dot && type *.dot | gvpack -array_i -u -o output.dot')
             system(
                 f'cd dot && dot -Tpng ./output.dot -o ../historial{name}.png')
             startfile(f'historial{name}.png')
 
             # * Delete files
-            # system(f'cd dot && del *.*')
+            system(f'cd dot && del *.*')
             folder = 'dot'
             for filename in os.listdir(folder):
                 file_path = os.path.join(folder, filename)
