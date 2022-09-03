@@ -14,7 +14,7 @@ class CellViewSimulation:
 
     def __init__(self, parent, patientRegister):
         self.simulation = Simulation(patientRegister)
-        self.patientName = patientRegister.name
+        self.patientRegister = patientRegister
         self.window = Toplevel(parent)
         self.window.geometry("800x480")
         self.window.title(f"Simulación {patientRegister.name}")
@@ -56,7 +56,6 @@ class CellViewSimulation:
         self.boardFrame.pack_forget()
         self.refreshInfo()
         messagebox.showinfo(title="Aviso", message='Simulacion terminada')
-        Report.generateGravizReport(self.simulation.history, self.patientName)
 
     def autoSimulateStart(self):
         self.simulationButtonStart['state'] = DISABLED
@@ -78,6 +77,15 @@ class CellViewSimulation:
         self.threadContinue = FALSE
         self.simulationButtonStart['state'] = NORMAL
         self.simulationButtonEnd['state'] = DISABLED
+
+    def generateIndividualReport(self):
+        res = Report.generateIndividualReport(self.patientRegister)
+
+        if res:
+            messagebox.showinfo(title="Aviso", message='Reporte Generado')
+        else:
+            messagebox.showerror(
+                title="Error", message='Hubo un error en la generación')
 
     def initUI(self):
 
@@ -140,6 +148,16 @@ class CellViewSimulation:
                command=self.untilFindDisease).grid(row=0,
                                                    column=5,
                                                    sticky=N + S + E + W)
+
+        Button(self.buttonFrame,
+               text="Reporte Individual",
+               pady=5,
+               padx=10,
+               bg="#DC2656",
+               fg="white",
+               command=self.generateIndividualReport).grid(row=0,
+                                                           column=5,
+                                                           sticky=N + S + E + W)
 
         self.buttonFrame.grid_columnconfigure(0, weight=1)
         self.buttonFrame.pack(expand=1, fill="x")

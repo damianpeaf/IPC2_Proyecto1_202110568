@@ -7,8 +7,9 @@ __pycache__/
 *.png
 *.dot
 
-# Reports xml
+# Reports pdf and xml
 reports/*.xml
+reports/*.pdf
 
 # C extensions
 *.so

@@ -1,6 +1,6 @@
 from data.doublyLinkedListWithIndex import DoublyLinkedListWithIndex
 from data.matrix import SquareMatrix
-from logic.logic import detectDisease, generateNextState
+from logic.logic import generateNextState
 
 
 class Simulation():
