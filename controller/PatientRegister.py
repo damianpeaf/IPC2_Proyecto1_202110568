@@ -9,6 +9,3 @@ class PatientRegister(object):
         self.periods = periods
         self.cellDimension = cellDimension
         self.initialState = initialMatrix
-
-    def runSimulation():
-        pass

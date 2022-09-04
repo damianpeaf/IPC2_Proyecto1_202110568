@@ -71,19 +71,19 @@ class Report():
             os.pardir
 
             # * Delete files
-            folder = 'dot'
-            for filename in os.listdir(folder):
-                file_path = os.path.join(folder, filename)
-                file_name, file_extension = os.path.splitext(file_path)
+            # folder = 'dot'
+            # for filename in os.listdir(folder):
+            #     file_path = os.path.join(folder, filename)
+            #     file_name, file_extension = os.path.splitext(file_path)
 
-                if file_extension == '.md':
-                    continue
+            #     if file_extension == '.md':
+            #         continue
 
-                if os.path.isfile(file_path) or os.path.islink(file_path):
+            #     if os.path.isfile(file_path) or os.path.islink(file_path):
 
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
+            #         os.unlink(file_path)
+            #     elif os.path.isdir(file_path):
+            #         shutil.rmtree(file_path)
             print('Borrando archivos dot')
 
             return True
