@@ -156,7 +156,7 @@ class CellViewSimulation:
                bg="#DC2656",
                fg="white",
                command=self.generateIndividualReport).grid(row=0,
-                                                           column=5,
+                                                           column=6,
                                                            sticky=N + S + E + W)
 
         self.buttonFrame.grid_columnconfigure(0, weight=1)

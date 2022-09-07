@@ -55,3 +55,22 @@ def infectedNeighboringCellsCount(i, j, matrix):
                 infectedCount += 1
 
     return infectedCount
+
+
+def imprimir(self):
+
+    nodoAleer = self.head
+
+    for fila in range(int(self.longitud**(1/2))):
+        columnaStr = ""
+        for columna in range(int(self.longitud**(1/2))):
+            caracter = ""
+
+            if self.Buscar(fila, columna).Estado:
+                caracter = "1"
+            else:
+                caracter = "0"
+
+            columnaStr += f"| {caracter} |"
+
+        print(columnaStr)
